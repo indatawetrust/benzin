@@ -7,3 +7,5 @@ full suite api generator
 - [ ] api documentation
 - [ ] custom middleware
 - [ ] management panel
+- [ ] api rate limiting
+- [ ] pub/sub queuing server support
