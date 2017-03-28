@@ -27,11 +27,11 @@
       },
       "post": {
         "ref": "Post",
-        "relation": "hasOne"
+        "relation": "belongsTo"
       },
       "user": {
         "ref": "User",
-        "relation": "hasOne"
+        "relation": "belongsTo"
       }
     }
   }
