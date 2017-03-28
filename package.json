@@ -1,0 +1,34 @@
+{
+  "name": "benzin",
+  "version": "0.0.1",
+  "description": "full suit api generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/indatawetrust/benzin.git"
+  },
+  "bin": {
+    "benzin": "bin/index.js"
+  },
+  "keywords": [
+    "api",
+    "generator"
+  ],
+  "author": "indatawetrust",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/indatawetrust/benzin/issues"
+  },
+  "homepage": "https://github.com/indatawetrust/benzin#readme",
+  "devDependencies": {
+    "ava": "^0.18.2",
+    "xo": "^0.18.0"
+  },
+  "dependencies": {
+    "commander": "^2.9.0",
+    "supertest": "^3.0.0"
+  }
+}
