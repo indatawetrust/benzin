@@ -5,6 +5,7 @@ full suite api generator
 - [ ] test tool
 - [ ] fake data tool
 - [ ] api documentation
+- [ ] custom validation
 - [ ] custom middleware
 - [ ] management panel
 - [ ] api rate limiting
