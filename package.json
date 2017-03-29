@@ -4,7 +4,7 @@
   "description": "full suit api generator",
   "main": "index.js",
   "scripts": {
-    "test": "xo && ava"
+    "test": "ava --serial"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "commander": "^2.9.0",
+    "faker": "^4.1.0",
     "jsonwebtoken": "^7.3.0",
     "koa-bouncer": "^6.0.0",
     "supertest": "^3.0.0"
@@ -36,5 +37,10 @@
   "xo": {
     "semicolon": false,
     "space": true
+  },
+  "ava": {
+    "files": [
+      "test.js"
+    ]
   }
 }
