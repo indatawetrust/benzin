@@ -4,7 +4,7 @@
   "description": "full suit api generator",
   "main": "index.js",
   "scripts": {
-    "test": "ava --serial"
+    "test": "ava -s -v"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "faker": "^4.1.0",
     "jsonwebtoken": "^7.3.0",
     "koa-bouncer": "^6.0.0",
+    "lodash": "^4.17.4",
     "supertest": "^3.0.0"
   },
   "xo": {

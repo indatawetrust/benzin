@@ -1,6 +1,27 @@
 import test from 'ava'
 import supertest from 'supertest'
 import faker from 'faker'
+import { models } from './benzin.json'
+import _ from 'lodash'
+
+let schemas = ['User']
+
+for (let i in models) {
+  for (let j in models[i]) {
+    if (models[i][j]) {
+      if (models[i][j].ref) {
+        switch (models[i][j].relation) {
+          case 'hasMany':
+              schemas.push(i)
+            break
+          case 'belongsTo':
+              schemas.push(i)
+            break
+        }
+      }
+    }
+  }
+}
 
 const request = supertest('http://localhost:3000')
 
@@ -53,4 +74,3 @@ test('user sign in', async t => {
   t.is(status, 200)
 
 })
-
