@@ -4,8 +4,8 @@
       "text": {
         "type": "String",
         "validations": {
-          "min": 10,
-          "max": 50
+          "length": "10 20",
+          "isAlpha": true
         }
       },
       "comments": {
@@ -21,8 +21,8 @@
       "text": {
         "type": "String",
         "validations": {
-          "min": 10,
-          "max": 50
+          "length": "10 20",
+          "isAlpha": true
         }
       },
       "post": {
