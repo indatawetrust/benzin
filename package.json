@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "commander": "^2.9.0",
+    "elek": "0.0.3",
     "faker": "^4.1.0",
     "jsonwebtoken": "^7.3.0",
     "koa-bouncer": "^6.0.0",

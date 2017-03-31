@@ -1,22 +1,5 @@
 {
   "models": {
-    "Post": {
-      "text": {
-        "type": "String",
-        "validations": {
-          "length": "10 20",
-          "isAlpha": true
-        }
-      },
-      "comments": {
-        "ref": "Comment",
-        "relation": "hasMany"
-      },
-      "user": {
-        "ref": "User",
-        "relation": "belongsTo"
-      }
-    },
     "Comment": {
       "text": {
         "type": "String",
@@ -28,6 +11,23 @@
       "post": {
         "ref": "Post",
         "relation": "belongsTo"
+      },
+      "user": {
+        "ref": "User",
+        "relation": "belongsTo"
+      }
+    },
+    "Post": {
+      "text": {
+        "type": "String",
+        "validations": {
+          "length": "10 20",
+          "isAlpha": true
+        }
+      },
+      "comments": {
+        "ref": "Comment",
+        "relation": "hasMany"
       },
       "user": {
         "ref": "User",
