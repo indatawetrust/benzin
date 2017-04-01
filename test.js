@@ -144,10 +144,10 @@ _.map(schemas, s => {
 
   test(`${model} get test`, async t => {
 
-    const refs = e(models[capitalize(model)], 'ref')
+    const refsBelongsTo = e(models[capitalize(model)], 'ref')
                  .filter(r => r.ref !== 'User' && r.relation === 'belongsTo')
 
-    _.map(refs, async ({ref}) => {
+    _.map(refsBelongsTo, async ({ref}) => {
 
       ref = ref.toLowerCase()
       
@@ -157,15 +157,37 @@ _.map(schemas, s => {
             { body } = res,
             { data } = body
 
-      t.deepEqual(data[`${model}s`], [Datas[model]])
+      //t.deepEqual(data, [Datas[model]])
 
     })
+    
+    if (refsBelongsTo.length) {
 
+      _.map(refsBelongsTo, async ({ref}) => {
+
+        ref = ref.toLowerCase()
+             
+        const res = await request
+                        .get(`/${ref}/${Datas[ref].id}/${model}s`)
+                        .set('Authorization', `Bearer ${user.token}`),
+              { body } = res,
+              { data } = body
+        
+        //t.deepEqual(data, [Datas[model]])
+
+      })
+
+    }
 
     const res = await request
                       .get(`/${model}/${Data.id}`)
                       .set('Authorization', `Bearer ${user.token}`),
-          { status } = res
+          { status, body } = res,
+          { data } = body
+
+    Data = data
+
+    //Datas[model] = Data
 
     t.is(status, 200)
 
@@ -187,4 +209,28 @@ _.map(schemas, s => {
 
   })
   
+})
+
+test('delete models', async t => {
+
+  const datas = []
+ 
+  for (let i in Datas) {
+    datas.push({
+      name: i,
+      id: Datas[i].id
+    })
+  }
+
+  for (let data of datas ) {
+    
+    const res = await request
+                      .del(`/${data.name}/${data.id}`)
+                      .set('Authorization', `Bearer ${user.token}`),
+          { status } = res
+  
+    t.is(status, 200)
+
+  }
+
 })
