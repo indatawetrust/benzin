@@ -5,7 +5,10 @@ import { models } from './benzin.json'
 import _ from 'lodash'
 import e from 'elek'
 
-let schemas = []
+const capitalize = s => s[0].toUpperCase() + s.slice(1)
+
+let schemas = [],
+    Datas = []
 
 schemas = _.map(models, (key, model) => {
   return {
@@ -109,22 +112,55 @@ _.map(schemas, s => {
 
   test(`${model} save test`, async t => {
 
+    const refs = e(models[capitalize(model)], 'ref')
+                 .filter(r => r.ref !== 'User' && r.relation === 'belongsTo')
+
+    let send = {
+      text: `tttest${model}`
+    }
+
+    _.map(refs, ({ref}) => {
+
+      ref = ref.toLowerCase()
+      
+      send[`${ref}Id`] = Datas[ref].id
+
+    })
+
     const res = await request
                       .post(`/${model}`)
-                      .send({
-                        text: "helloworldaa"
-                      })
+                      .send(send)
                       .set('Authorization', `Bearer ${user.token}`),
           { status, body } = res,
           { data } = body
 
     Data = data
 
+    Datas[model] = Data
+
     t.is(status, 200)
 
   })
 
   test(`${model} get test`, async t => {
+
+    const refs = e(models[capitalize(model)], 'ref')
+                 .filter(r => r.ref !== 'User' && r.relation === 'belongsTo')
+
+    _.map(refs, async ({ref}) => {
+
+      ref = ref.toLowerCase()
+      
+      const res = await request
+                        .get(`/${ref}/${Datas[ref].id}`)
+                        .set('Authorization', `Bearer ${user.token}`),
+            { body } = res,
+            { data } = body
+
+      t.deepEqual(data[`${model}s`], [Datas[model]])
+
+    })
+
 
     const res = await request
                       .get(`/${model}/${Data.id}`)
