@@ -1,0 +1,13 @@
+web:
+  build: .
+  command: bash -c "npm i && npm start"
+  volumes:
+    - .:/api
+    - /app/node_modules
+  ports:
+    - "3000:3000"
+  links:
+     - rethink
+rethink:
+  image: rethinkdb:latest
+  container_name: rethink_server

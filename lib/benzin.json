@@ -1,0 +1,39 @@
+{
+  "id": "e071ac1e-16e8-11e7-93ae-92361f002671",
+  "models": {
+    "Comment": {
+      "text": {
+        "type": "String",
+        "validations": {
+          "length": "10 20",
+          "isAlpha": true
+        }
+      },
+      "post": {
+        "ref": "Post",
+        "relation": "belongsTo"
+      },
+      "user": {
+        "ref": "User",
+        "relation": "belongsTo"
+      }
+    },
+    "Post": {
+      "text": {
+        "type": "String",
+        "validations": {
+          "length": "10 20",
+          "isAlpha": true
+        }
+      },
+      "comments": {
+        "ref": "Comment",
+        "relation": "hasMany"
+      },
+      "user": {
+        "ref": "User",
+        "relation": "belongsTo"
+      }
+    }
+  }
+}
