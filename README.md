@@ -1,6 +1,8 @@
 # benzin
 full suite api generator
 
+docker-compose run -d --service-ports api
+
 - [ ] api relationship support
 - [ ] test tool
 - [ ] relation filter

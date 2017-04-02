@@ -8,7 +8,12 @@ import e from 'elek'
 const capitalize = s => s[0].toUpperCase() + s.slice(1)
 
 let schemas = [],
-    Datas = []
+    Datas = [],
+    reqCount = 0
+
+test.afterEach(t => {
+  reqCount += t.context.req
+})
 
 schemas = _.map(models, (key, model) => {
   return {
@@ -33,6 +38,8 @@ test('index', async t => {
 
   const res = await request.get('/'),
         { status } = res
+
+  t.context.req = 1
   
   t.is(status, 200)
 
@@ -50,6 +57,8 @@ test('user sign up', async t => {
                     }),
         { status, body } = res,
         { data } = body
+
+  t.context.req = 1
   
   user = data
   user.password = password
@@ -69,6 +78,8 @@ test('user sign in', async t => {
         { status, body } = res,
         { data } = body,
         { token } = data
+ 
+  t.context.req = 1
   
   user.token = token
 
@@ -92,6 +103,8 @@ _.map(schemas, s => {
                       }),
           { status } = res
 
+    t.context.req = 1
+
     t.is(status, 401)
 
   })
@@ -105,6 +118,8 @@ _.map(schemas, s => {
                       })
                       .set('Authorization', `Bearer ${user.token}`),
           { status } = res
+
+    t.context.req = 1
 
     t.is(status, 400)
 
@@ -134,6 +149,8 @@ _.map(schemas, s => {
           { status, body } = res,
           { data } = body
 
+    t.context.req = 1
+
     Data = data
 
     Datas[model] = Data
@@ -144,10 +161,14 @@ _.map(schemas, s => {
 
   test(`${model} get test`, async t => {
 
+    let req = 0
+
     const refsBelongsTo = e(models[capitalize(model)], 'ref')
                  .filter(r => r.ref !== 'User' && r.relation === 'belongsTo')
 
     _.map(refsBelongsTo, async ({ref}) => {
+
+      req++
 
       ref = ref.toLowerCase()
       
@@ -165,6 +186,8 @@ _.map(schemas, s => {
 
       _.map(refsBelongsTo, async ({ref}) => {
 
+        req++
+
         ref = ref.toLowerCase()
              
         const res = await request
@@ -172,7 +195,7 @@ _.map(schemas, s => {
                         .set('Authorization', `Bearer ${user.token}`),
               { body } = res,
               { data } = body
-        
+
         //t.deepEqual(data, [Datas[model]])
 
       })
@@ -184,6 +207,10 @@ _.map(schemas, s => {
                       .set('Authorization', `Bearer ${user.token}`),
           { status, body } = res,
           { data } = body
+
+    req++
+
+    t.context.req = req
 
     Data = data
 
@@ -204,6 +231,8 @@ _.map(schemas, s => {
           { status, body } = res,
           { data } = body
 
+    t.context.req = 1
+
     t.notDeepEqual(data, Data)
     t.is(status, 200)
 
@@ -212,6 +241,8 @@ _.map(schemas, s => {
 })
 
 test('delete models', async t => {
+
+  let req = 0
 
   const datas = []
  
@@ -223,14 +254,18 @@ test('delete models', async t => {
   }
 
   for (let data of datas ) {
+
+    req++
     
     const res = await request
                       .del(`/${data.name}/${data.id}`)
                       .set('Authorization', `Bearer ${user.token}`),
           { status } = res
-  
+
     t.is(status, 200)
 
   }
+
+  t.context.req = req
 
 })

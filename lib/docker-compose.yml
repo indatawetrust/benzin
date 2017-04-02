@@ -1,4 +1,4 @@
-web:
+api:
   build: .
   command: bash -c "npm i && npm start"
   volumes:
@@ -10,4 +10,3 @@ web:
      - rethink
 rethink:
   image: rethinkdb:latest
-  container_name: rethink_server

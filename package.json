@@ -25,15 +25,19 @@
   "homepage": "https://github.com/indatawetrust/benzin#readme",
   "devDependencies": {
     "ava": "^0.18.2",
+    "nyc": "^10.2.0",
     "xo": "^0.18.0"
   },
   "dependencies": {
+    "cli-spinners": "^1.0.0",
     "commander": "^2.9.0",
     "elek": "0.0.3",
     "faker": "^4.1.0",
+    "fs-extra": "^2.1.2",
     "jsonwebtoken": "^7.3.0",
     "koa-bouncer": "^6.0.0",
     "lodash": "^4.17.4",
+    "ora": "^1.2.0",
     "supertest": "^3.0.0"
   },
   "xo": {
