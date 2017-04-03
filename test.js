@@ -23,10 +23,10 @@ schemas = _.map(models, (key, model) => {
 })
 
 _.map(schemas.slice(), (s,i) => {
-  if (s.refs.map(r => r.relation).indexOf('hasMany') === -1) {
-    schemas.splice(i, 1)
-    schemas.push(s)
-  }
+    if (s.refs.map(r => r.relation).indexOf('hasMany') === -1) {
+      schemas.splice(i, 1)
+      schemas.push(s)
+    }
 })
 
 const request = supertest('http://localhost:3000')
@@ -175,10 +175,10 @@ _.map(schemas, s => {
       const res = await request
                         .get(`/${ref}/${Datas[ref].id}`)
                         .set('Authorization', `Bearer ${user.token}`),
-            { body } = res,
+            { status, body } = res,
             { data } = body
 
-      //t.deepEqual(data, [Datas[model]])
+      t.is(status, 200)
 
     })
     
@@ -193,11 +193,11 @@ _.map(schemas, s => {
         const res = await request
                         .get(`/${ref}/${Datas[ref].id}/${model}s`)
                         .set('Authorization', `Bearer ${user.token}`),
-              { body } = res,
+              { status, body } = res,
               { data } = body
 
-        //t.deepEqual(data, [Datas[model]])
-
+        t.is(status, 200)
+        
       })
 
     }
@@ -214,8 +214,6 @@ _.map(schemas, s => {
 
     Data = data
 
-    //Datas[model] = Data
-
     t.is(status, 200)
 
   })
@@ -225,7 +223,7 @@ _.map(schemas, s => {
     const res = await request
                       .put(`/${model}/${Data.id}`)
                       .send({
-                        text: "adsasadsdasdadad"
+                        text: `${model}ooooooooooooooo`
                       })
                       .set('Authorization', `Bearer ${user.token}`),
           { status, body } = res,
@@ -238,6 +236,41 @@ _.map(schemas, s => {
 
   })
   
+})
+
+test('user relational models', async t => {
+   const res = await request
+                    .get(`/user/${user.id}`)
+                    .set('Authorization', `Bearer ${user.token}`),
+        { status, body } = res,
+        { data } = body
+
+  t.is(status, 200)
+  t.is(data.posts.length, 1)
+  t.is(data.comments.length, 1)
+
+  for (let i in models) {
+    if(_.filter(e(models[i], 'ref'), {
+      ref: 'User',
+      relation: 'belongsTo' 
+    }).length) {
+      
+      let name = i
+
+      name = name.toLowerCase()
+
+      const res = await request
+                  .get(`/user/${user.id}/${name}s`)
+                  .set('Authorization', `Bearer ${user.token}`),
+            { status, body } = res,
+            { data } = body
+
+      t.is(status, 200)
+
+    }
+  }
+
+
 })
 
 test('delete models', async t => {
@@ -267,5 +300,5 @@ test('delete models', async t => {
   }
 
   t.context.req = req
-
+  
 })
