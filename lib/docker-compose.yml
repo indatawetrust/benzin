@@ -1,6 +1,6 @@
 api:
   build: .
-  command: bash -c "npm i && npm start"
+  command: bash -c "yarn && yarn start"
   volumes:
     - .:/api
     - /app/node_modules

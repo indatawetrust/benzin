@@ -1,6 +1,6 @@
 {
   "name": "benzin",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "full suit api generator",
   "main": "index.js",
   "scripts": {
@@ -34,7 +34,6 @@
     "elek": "0.0.3",
     "faker": "^4.1.0",
     "fs-extra": "^2.1.2",
-    "jsonwebtoken": "^7.3.0",
     "koa-bouncer": "^6.0.0",
     "lodash": "^4.17.4",
     "ora": "^1.2.0",
