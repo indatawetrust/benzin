@@ -31,7 +31,7 @@
   "dependencies": {
     "cli-spinners": "^1.0.0",
     "commander": "^2.9.0",
-    "elek": "0.0.3",
+    "elek": "0.0.4",
     "faker": "^4.1.0",
     "fs-extra": "^2.1.2",
     "koa-bouncer": "^6.0.0",
