@@ -2,6 +2,12 @@
   "id": "e071ac1e-16e8-11e7-93ae-92361f002671",
   "container_name": "benzin_api",
   "models": {
+    "User": {
+      "info": {
+        "ref": "Info",
+        "relation": "hasOne"
+      }
+    },
     "Comment": {
       "text": {
         "type": "String",
@@ -34,6 +40,14 @@
       "user": {
         "ref": "User",
         "relation": "belongsTo"
+      }
+    },
+    "Info": {
+      "bio": {
+        "type": "String",
+        "validations": {
+
+        }
       }
     }
   }
