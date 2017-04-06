@@ -11,3 +11,5 @@ full suite api generator
 - [ ] management panel
 - [ ] api rate limiting
 - [ ] pub/sub queuing server support
+- [ ] automatic backup
+- [ ] multipart support
