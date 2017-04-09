@@ -22,6 +22,32 @@ schemas = _.map(models, (key, model) => {
   }
 })
 
+// values generator
+const valuesGenerator = values => {
+  
+  values = e(values, 'type', 1)
+
+  let _values = {}
+
+  for (let i in values) {
+    
+    let key = Object.keys(values[i])[0],
+        { type } = values[i][key]
+    
+    switch (type) {
+      
+      case 'String':
+          _values[key] = faker.lorem.words()
+        break
+
+    }
+
+  }
+
+  return _values
+
+}
+
 // auto relation sort
 for (let i in schemas) {
   
@@ -156,16 +182,12 @@ _.map(schemas, s => {
     const refs = e(models[capitalize(model)], 'ref')
                  .filter(r => r.ref !== 'User' && r.relation === 'belongsTo')
     
-    let send = {
-      text: `tttesteeeeeeeeeee`,
-      bio: "sssssssssssssss",
-      title: 'eeeeeeeeeeeeeeeeeeeeeeeeee'
-    }
+    let send = valuesGenerator(models[capitalize(model)])
 
     _.map(refs, ({ref}) => {
 
       ref = ref.toLowerCase()
-      
+
       send[`${ref}Id`] = Datas[ref].id
 
     })
@@ -176,7 +198,7 @@ _.map(schemas, s => {
                       .set('Authorization', `Bearer ${user.token}`),
           { status, body } = res,
           { data } = body
-
+    
     t.context.req = 1
 
     Data = data

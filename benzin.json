@@ -6,8 +6,7 @@
       "text": {
         "type": "String",
         "validations": {
-          "length": "5 200",
-          "isAlpha": true
+          "length": "5 200"
         }
       },
       "post": {
@@ -51,7 +50,7 @@
       "bio": {
         "type": "String",
         "validations": {
-          "isAlpha": "true"
+          "length": "5 200"
         }
       }
     }
