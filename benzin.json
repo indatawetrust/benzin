@@ -2,11 +2,11 @@
   "id": "e071ac1e-16e8-11e7-93ae-92361f002671",
   "container_name": "benzin_api",
   "models": {
-    "Comment": {
+"Comment": {
       "text": {
         "type": "String",
         "validations": {
-          "length": "10 20",
+          "length": "5 200",
           "isAlpha": true
         }
       },
@@ -19,12 +19,23 @@
         "relation": "belongsTo"
       }
     },
+    "User": {
+      "info": {
+        "ref": "Info",
+        "relation": "hasOne"
+      }
+    }, 
     "Post": {
+      "title": {
+        "type": "String",
+        "validations": {
+          "length": "5 200"
+        }
+      },
       "text": {
         "type": "String",
         "validations": {
-          "length": "10 20",
-          "isAlpha": true
+          "length": "5 200"
         }
       },
       "comments": {
@@ -34,6 +45,14 @@
       "user": {
         "ref": "User",
         "relation": "belongsTo"
+      }
+    },
+    "Info": {
+      "bio": {
+        "type": "String",
+        "validations": {
+
+        }
       }
     }
   }

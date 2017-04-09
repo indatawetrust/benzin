@@ -22,14 +22,48 @@ schemas = _.map(models, (key, model) => {
   }
 })
 
-_.map(schemas.slice(), (s,i) => {
+/*_.map(schemas.slice(), (s,i) => {
     if (s.refs.map(r => r.relation).indexOf('hasMany') === -1) {
       schemas.splice(i, 1)
       schemas.push(s)
     }
-})
+})*/
+
+
+// auto relation sort
+for (let i in schemas) {
+  
+  schemas.map(({model}, j) => {
+    
+    let s = schemas[i].refs.filter(({ref}) => ref === model )[0]
+    
+    if (s) {
+
+      let { ref, relation } = s
+      
+      switch (relation) {
+        
+        case 'hasOne':
+        case 'hasMany':
+
+            s  = schemas[j]
+            
+            schemas.splice(j, 1)
+            schemas.splice(parseInt(i)+1, 0, s)
+
+          break
+
+      }
+
+    }
+  
+  }) 
+
+}
 
 const request = supertest('http://localhost:3000')
+
+schemas = schemas.filter(s => s.model != 'User')
 
 // variables
 let user = {}
@@ -131,7 +165,8 @@ _.map(schemas, s => {
                  .filter(r => r.ref !== 'User' && r.relation === 'belongsTo')
 
     let send = {
-      text: `tttest${model}`
+      text: `tttest${model}e`,
+      title: 'eeeeeeeeeeeeeeeeeeeeeeeeee'
     }
 
     _.map(refs, ({ref}) => {
