@@ -22,14 +22,6 @@ schemas = _.map(models, (key, model) => {
   }
 })
 
-/*_.map(schemas.slice(), (s,i) => {
-    if (s.refs.map(r => r.relation).indexOf('hasMany') === -1) {
-      schemas.splice(i, 1)
-      schemas.push(s)
-    }
-})*/
-
-
 // auto relation sort
 for (let i in schemas) {
   
@@ -148,7 +140,7 @@ _.map(schemas, s => {
     const res = await request
                       .post(`/${model}`)
                       .send({
-                        text: "************"
+                        
                       })
                       .set('Authorization', `Bearer ${user.token}`),
           { status } = res
@@ -163,9 +155,10 @@ _.map(schemas, s => {
 
     const refs = e(models[capitalize(model)], 'ref')
                  .filter(r => r.ref !== 'User' && r.relation === 'belongsTo')
-
+    
     let send = {
-      text: `tttest${model}e`,
+      text: `tttesteeeeeeeeeee`,
+      bio: "sssssssssssssss",
       title: 'eeeeeeeeeeeeeeeeeeeeeeeeee'
     }
 
@@ -258,7 +251,8 @@ _.map(schemas, s => {
     const res = await request
                       .put(`/${model}/${Data.id}`)
                       .send({
-                        text: `${model}ooooooooooooooo`
+                        text: `${model}ooooooooooooooo`,
+                        bio: 'aaaaaaaaaaaaaa'
                       })
                       .set('Authorization', `Bearer ${user.token}`),
           { status, body } = res,

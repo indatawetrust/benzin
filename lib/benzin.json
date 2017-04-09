@@ -2,7 +2,7 @@
   "id": "e071ac1e-16e8-11e7-93ae-92361f002671",
   "container_name": "benzin_api",
   "models": {
-"Comment": {
+    "Comment": {
       "text": {
         "type": "String",
         "validations": {
@@ -51,7 +51,7 @@
       "bio": {
         "type": "String",
         "validations": {
-
+          "isAlpha": "true"
         }
       }
     }
