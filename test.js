@@ -180,7 +180,11 @@ _.map(schemas, s => {
   test(`${model} save test`, async t => {
 
     const refs = e(models[capitalize(model)], 'ref')
-                 .filter(r => r.ref !== 'User' && r.relation === 'belongsTo')
+                 .filter(r => r.ref !== 'User' && (
+                       r.relation === 'belongsTo'
+                       ||
+                       r.relation === 'hasOne'
+                        ))
     
     let send = valuesGenerator(models[capitalize(model)])
 
