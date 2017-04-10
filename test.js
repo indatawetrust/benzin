@@ -270,12 +270,11 @@ _.map(schemas, s => {
 
   test(`${model} update test`, async t => {
 
+    let send = valuesGenerator(models[capitalize(model)])
+
     const res = await request
                       .put(`/${model}/${Data.id}`)
-                      .send({
-                        text: `${model}ooooooooooooooo`,
-                        bio: 'aaaaaaaaaaaaaa'
-                      })
+                      .send(send)
                       .set('Authorization', `Bearer ${user.token}`),
           { status, body } = res,
           { data } = body

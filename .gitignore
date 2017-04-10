@@ -39,3 +39,4 @@ jspm_packages
 test
 test.sh
 lib/rethinkdb_data
+rethinkdb_data
