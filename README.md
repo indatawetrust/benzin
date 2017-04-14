@@ -13,3 +13,4 @@ full suite api generator
 - [ ] pub/sub queuing server support
 - [ ] automatic backup
 - [ ] multipart support
+- [ ] scaling for api and database
