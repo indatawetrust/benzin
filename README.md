@@ -1,8 +1,8 @@
 # benzin
 full suite api generator
 
-- [ ] api relationship support
-- [ ] test tool
+- [x] api relationship support
+- [x] test tool
 - [ ] relation filter
 - [ ] fake data tool
 - [ ] api documentation
